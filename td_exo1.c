@@ -2,7 +2,25 @@
 #include <stdio.h>
 #include <limits.h>
 
-int *minMax1(int *t, unsigned int n) {
+typedef struct {
+    int min;
+    int max;
+}resMinMax;
+
+resMinMax   *minMax2(int *t, unsigned int n) {
+    resMinMax   *mm;
+
+    mm = malloc(sizeof(resMinMax));
+    for (int i = 0; i < n; i++) {
+        if (t[i] < mm->min)
+            mm->min = t[i];
+        if (t[i] > mm->max)
+            mm->max = t[i];
+    }
+    return (mm);
+}
+
+int         *minMax1(int *t, unsigned int n) {
     int *tab;
     int min;
     int max;
@@ -16,18 +34,18 @@ int *minMax1(int *t, unsigned int n) {
         if (t[i] < min)
             min = t[i];
         if (t[i] > max)
-            max = t [i];
+            max = t[i];
     }
     tab[0] = min;
     tab[1] = max;
     return (tab);
 }
 
-int main(int argc, char **argv) {
+int         main(int argc, char **argv) {
     if (argc < 2){
         return (EXIT_FAILURE);
     }
-    int* tab;
+    int *tab;
     int size = atoi(argv[1]);
     
     // We ask to allocate the memory for the array
@@ -45,7 +63,9 @@ int main(int argc, char **argv) {
     for (int i=0; i<size; i=i+1){
         printf("tab[%d] = %d\n", i, tab[i]);
     }
-    printf("\n");
+    printf("\n"); 
     printf("%d\n", minMax1(tab, size)[1]);
+    printf("\n");
+    printf("%d\n", minMax2(tab, size)->max);
     free(tab);
 }
