@@ -21,4 +21,5 @@ void    free_tab(rectangle *t) {
 
 int     main(void) {
     free_tab(createArrayofRectangles(4));
+    free(NULL);
 }
